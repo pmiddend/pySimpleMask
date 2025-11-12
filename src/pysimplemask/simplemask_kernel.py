@@ -80,6 +80,26 @@ class SimpleMask(object):
         mask = self.mask.astype(np.uint8)
         tifffile.imwrite(save_name, mask, compression="LZW")
 
+    def save_fpga_partition(self, save_name):
+        # if no partition is computed yet
+        if self.new_partition is None:
+            return
+
+        for key, val in self.new_partition.items():
+            self.new_partition[key] = optimize_integer_array(val)
+
+        def optimize_save(key, val):
+            if isinstance(val, np.ndarray) and val.size > 1024:
+                compression = "lzf"
+            else:
+                compression = None
+            dset = group_handle.create_dataset(key, data=val, compression=compression)
+            return dset
+
+        for key, val in self.new_partition.items():
+            print(f"key: {key}, val: {val}")
+            # dset = optimize_save(key, val)
+
     def save_partition(self, save_fname, root="/qmap"):
         # if no partition is computed yet
         if self.new_partition is None:

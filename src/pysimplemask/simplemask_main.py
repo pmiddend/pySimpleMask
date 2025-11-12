@@ -689,6 +689,13 @@ class SimpleMaskGUI(QMainWindow, Ui):
             if not save_fname.endswith(".tif") and not save_fname.endswith(".tiff"):
                 save_fname += ".tif"
             target_function = self.sm.save_mask
+        elif save_type == "P10 FPGA":
+            save_fname = QFileDialog.getSaveFileName(
+                self, caption="Save mask as tif", filter="TIF (*.tif)"
+            )[0]
+            if not save_fname.endswith(".tif") and not save_fname.endswith(".tiff"):
+                save_fname += ".tif"
+            target_function = self.sm.save_fpga_partition
 
         try:
             target_function(save_fname)
