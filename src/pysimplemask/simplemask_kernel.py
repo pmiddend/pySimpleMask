@@ -5,6 +5,7 @@ import time
 import h5py
 import numpy as np
 import pyqtgraph as pg
+from matplotlib import cm
 import tifffile
 from pyqtgraph.Qt import QtCore
 
@@ -98,7 +99,28 @@ class SimpleMask(object):
 
         for key, val in self.new_partition.items():
             print(f"key: {key}, val: {val}")
-            # dset = optimize_save(key, val)
+
+        dynamic_roi_map = self.new_partition.get("dynamic_roi_map")
+        if dynamic_roi_map is None:
+            return
+
+        partitions = dynamic_roi_map
+        vmin = partitions.min()
+        vmax = partitions.max()
+        norm = (partitions - vmin) / (vmax - vmin)
+
+        cmap = cm.get_cmap('jet')
+        rgba = cmap(norm)
+        rgb_uint8 = (rgba[..., :3] * 255).astype(np.uint8)
+
+        # Option A – using tifffile (offers many TIFF options)
+        tifffile.imwrite(
+            save_name,
+            rgb_uint8,
+            photometric='rgb',
+            compression='deflate',
+            metadata=None
+        )
 
     def save_partition(self, save_fname, root="/qmap"):
         # if no partition is computed yet
