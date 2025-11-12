@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'mask.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.8.2
+## Created by: Qt User Interface Compiler version 6.8.3
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -1458,6 +1458,7 @@ class Ui_SimpleMask(object):
         self.comboBox_output_type = QComboBox(self.groupBox_6)
         self.comboBox_output_type.addItem("")
         self.comboBox_output_type.addItem("")
+        self.comboBox_output_type.addItem("")
         self.comboBox_output_type.setObjectName(u"comboBox_output_type")
         sizePolicy4.setHeightForWidth(self.comboBox_output_type.sizePolicy().hasHeightForWidth())
         self.comboBox_output_type.setSizePolicy(sizePolicy4)
@@ -1698,6 +1699,7 @@ class Ui_SimpleMask(object):
         self.label_47.setText(QCoreApplication.translate("SimpleMask", u"Format", None))
         self.comboBox_output_type.setItemText(0, QCoreApplication.translate("SimpleMask", u"Nexus-XPCS", None))
         self.comboBox_output_type.setItemText(1, QCoreApplication.translate("SimpleMask", u"Mask-Only", None))
+        self.comboBox_output_type.setItemText(2, QCoreApplication.translate("SimpleMask", u"P10 FPGA", None))
 
         self.pushButton.setText(QCoreApplication.translate("SimpleMask", u"save", None))
     # retranslateUi
