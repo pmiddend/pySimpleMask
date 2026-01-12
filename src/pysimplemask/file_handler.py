@@ -10,6 +10,8 @@ def get_handler(beamline, fname, **kwargs):
         from .reader.APS_8IDI.aps_8idi_reader import APS8IDIReader as Reader 
     elif beamline == "APS_9IDD":
         from .reader.APS_9IDD.aps_9idd_reader import APS9IDDReader as Reader
+    elif beamline == "DESY_P10":
+        from .reader.DESY.file_handler import DESYP10Reader as Reader
     
     if Reader is None:
         logger.error("Unsupported beamline")

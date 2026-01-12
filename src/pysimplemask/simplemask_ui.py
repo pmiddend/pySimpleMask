@@ -63,6 +63,7 @@ class Ui_SimpleMask(object):
         self.comboBox_beamline.addItem("")
         self.comboBox_beamline.addItem("")
         self.comboBox_beamline.addItem("")
+        self.comboBox_beamline.addItem("")
         self.comboBox_beamline.setObjectName(u"comboBox_beamline")
 
         self.horizontalLayout.addWidget(self.comboBox_beamline)
@@ -1501,6 +1502,7 @@ class Ui_SimpleMask(object):
         self.comboBox_beamline.setItemText(0, QCoreApplication.translate("SimpleMask", u"APS_8IDI", None))
         self.comboBox_beamline.setItemText(1, QCoreApplication.translate("SimpleMask", u"APS_9IDD", None))
         self.comboBox_beamline.setItemText(2, QCoreApplication.translate("SimpleMask", u"NativeFiles", None))
+        self.comboBox_beamline.setItemText(3, QCoreApplication.translate("SimpleMask", u"DESY_P10", None))
 
         self.label_9.setText(QCoreApplication.translate("SimpleMask", u"begin index:", None))
         self.label_28.setText(QCoreApplication.translate("SimpleMask", u"num_frames", None))
