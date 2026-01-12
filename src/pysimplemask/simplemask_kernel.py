@@ -103,21 +103,16 @@ class SimpleMask(object):
         dynamic_roi_map = self.new_partition.get("dynamic_roi_map")
         if dynamic_roi_map is None:
             return
+        static_roi_map = self.new_partition.get("static_roi_map")
+        if static_roi_map is None:
+            return
 
-        partitions = dynamic_roi_map
-        vmin = partitions.min()
-        vmax = partitions.max()
-        norm = (partitions - vmin) / (vmax - vmin)
+        partitions = np.stack((static_roi_map, dynamic_roi_map), axis=0)
 
-        cmap = cm.get_cmap('jet')
-        rgba = cmap(norm)
-        rgb_uint8 = (rgba[..., :3] * 255).astype(np.uint8)
-
-        # Option A – using tifffile (offers many TIFF options)
         tifffile.imwrite(
             save_name,
-            rgb_uint8,
-            photometric='rgb',
+            partitions,
+            photometric='minisblack',
             compression='deflate',
             metadata=None
         )
