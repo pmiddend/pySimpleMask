@@ -1,3 +1,4 @@
+import numpy as np
 import logging
 import os
 import h5py
@@ -60,7 +61,15 @@ class DESYP10Reader(FileReader):
         meta = {}
         with h5py.File(self.fname, "r") as f:
             for key, val in keys_in_h5.items():
-                meta[key] = f[val][()]
+                try:
+                    value_in_h5 = f[val][()]
+                    # later on, we want to JSON serialize the values here, which
+                    # fails for these numpy specific types
+                    if isinstance(value_in_h5, np.floating):
+                        value_in_h5 = float(value_in_h5)
+                    meta[key] = value_in_h5
+                except:
+                    logger.exception(f"couldn't read key {key}, val {val} from hdf5 value")
             meta["data_name"] = os.path.basename(self.fname)
 
         for k in keys_in_batchinfo:
